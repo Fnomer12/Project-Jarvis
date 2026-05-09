@@ -1,0 +1,10 @@
+.env
+venv
+.venv
+__pycache__
+*.pyc
+.DS_Store
+node_modules
+.next
+jarvis-ui/node_modules
+jarvis-ui/.next
