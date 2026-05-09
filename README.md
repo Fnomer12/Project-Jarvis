@@ -204,12 +204,8 @@ node_modules
 
 # Author
 
-Michael Damoah  
+Adjei Sampson
 AI Engineer  
 Project Jarvis Initiative
 
----
 
-# License
-
-MIT License
