@@ -64,28 +64,47 @@ export default function SignupPage() {
 
     setCreating(true);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          preferred_name: preferredName,
-          phone_number: `${phoneCode}${phone}`,
-          gender,
-          citizenship,
-        },
-      },
-    });
+   const { data, error } = await supabase.auth.signUp({
+  email,
+  password,
+  options: {
+    data: {
+      full_name: fullName,
+      preferred_name: preferredName,
+      phone_number: `${phoneCode}${phone}`,
+      gender,
+      citizenship,
+    },
+  },
+});
 
+if (error) {
+  setCreating(false);
+  setMessage(error.message);
+  return;
+}
+
+if (data.user) {
+  const { error: profileError } = await supabase.from("profiles").insert({
+    id: data.user.id,
+    full_name: fullName,
+    preferred_name: preferredName,
+    email,
+    phone_code: phoneCode,
+    phone_number: phone,
+    gender,
+    citizenship,
+  });
+
+  if (profileError) {
     setCreating(false);
+    setMessage(profileError.message);
+    return;
+  }
+}
 
-    if (error) {
-      setMessage(error.message);
-      return;
-    }
-
-    setMessage("Account created successfully. Check your email to confirm your account.");
+setCreating(false);
+setMessage("Account created successfully. Check your email to confirm your account.");
   }
 
   return (

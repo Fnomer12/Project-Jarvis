@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JARVIS",
+  title: "Jarvis AI",
   description: "Futuristic AI Operating System",
 };
 
